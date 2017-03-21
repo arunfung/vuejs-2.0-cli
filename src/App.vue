@@ -2,6 +2,9 @@
   <div id="app">
     <img src="./assets/logo.png">
     <!--<router-view></router-view>-->
+    <h1>my Todos
+      <span v-show="remaining">({{remaining}})</span>
+    </h1>
     <todos :todos="todos"></todos>
     <todo-form :todos="todos"></todo-form>
   </div>
@@ -23,6 +26,11 @@ export default {
     computed:{
         todoCount(){
             return this.todos.length;
+        },
+        remaining() {
+            return this.todos.filter(function (todo) {
+                return !todo.completed;
+            }).length;
         }
     },
     components: {
