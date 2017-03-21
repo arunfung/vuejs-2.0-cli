@@ -1,13 +1,33 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
-    <router-view></router-view>
+    <!--<router-view></router-view>-->
+    <todos :todos="todos"></todos>
+    <todo-form :todos="todos"></todo-form>
   </div>
 </template>
 
 <script>
+import Todos from './components/Todos'
+import TodoForm from './components/TodoForm'
 export default {
-  name: 'app'
+  name: 'app',
+    data() {
+      return {
+          todos:[
+              {id:1,title:'my todo',completed:false}
+          ]
+      }
+
+    },
+    computed:{
+        todoCount(){
+            return this.todos.length;
+        }
+    },
+    components: {
+      Todos,TodoForm
+    }
 }
 </script>
 
