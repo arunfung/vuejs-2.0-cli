@@ -1,18 +1,15 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
-    <!--<router-view></router-view>-->
     <h1>my Todos
       <span v-show="remaining">({{remaining}})</span>
     </h1>
-    <todos :todos="todos"></todos>
-    <todo-form :todos="todos"></todo-form>
+    <router-view :todos="todos"></router-view>
+    <!--<todos :todos="todos"></todos>-->
   </div>
 </template>
 
 <script>
-import Todos from './components/Todos'
-import TodoForm from './components/TodoForm'
 export default {
   name: 'app',
     data() {
@@ -24,8 +21,8 @@ export default {
     },
     mounted(){
         this.axios.get('http://laravel-vue.dev/api/todos').then(response => {
-//            console.log(response.data)
-            this.todos = response.data;
+//            console.log(response.data.data);
+            this.todos = response.data.data;
         })
     },
     computed:{
@@ -38,9 +35,7 @@ export default {
             }).length;
         }
     },
-    components: {
-      Todos,TodoForm
-    }
+
 }
 </script>
 
