@@ -21,7 +21,12 @@ export default {
               {id:1,title:'my todo',completed:false}
           ]
       }
-
+    },
+    mounted(){
+        this.axios.get('http://laravel-vue.dev/api/todos').then(response => {
+//            console.log(response.data)
+            this.todos = response.data;
+        })
     },
     computed:{
         todoCount(){
