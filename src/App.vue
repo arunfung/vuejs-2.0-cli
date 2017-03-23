@@ -22,7 +22,7 @@ export default {
     mounted(){
         this.axios.get('http://laravel-vue.dev/api/todos').then(response => {
 //            console.log(response.data.data);
-            this.todos = response.data.data;
+            this.todos = response.data;
         })
     },
     computed:{
