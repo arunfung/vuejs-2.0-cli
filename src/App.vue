@@ -1,41 +1,30 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
-    <h1>my Todos
-      <span v-show="remaining">({{remaining}})</span>
+    <h1>my Todos  {{todoCount}}
+      <!--<span v-show="remaining">({{remaining}})</span>-->
     </h1>
-    <router-view :todos="todos"></router-view>
+    <router-view></router-view>
     <!--<todos :todos="todos"></todos>-->
   </div>
 </template>
 
 <script>
 export default {
-  name: 'app',
-    data() {
-      return {
-          todos:[
-              {id:1,title:'my todo',completed:false}
-          ]
-      }
-    },
+    name: 'app',
     mounted(){
-        this.axios.get('http://laravel-vue.dev/api/todos').then(response => {
-//            console.log(response.data.data);
-            this.todos = response.data;
-        })
+        this.$store.dispatch('getTodos')
     },
     computed:{
         todoCount(){
-            return this.todos.length;
-        },
-        remaining() {
-            return this.todos.filter(function (todo) {
-                return !todo.completed;
-            }).length;
+            return this.$store.state.todos.length;
         }
-    },
-
+//        remaining() {
+//            return this.todos.filter(function (todo) {
+//                return !todo.completed;
+//            }).length;
+//        }
+    }
 }
 </script>
 

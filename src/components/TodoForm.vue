@@ -18,24 +18,14 @@
 
 <script>
     export default{
-        props : ['todos'],
-        data(){
-            return {
-                newTodo:{id:null,title:'',body:'',completed:false}
+        computed: {
+            newTodo () {
+                return this.$store.state.newTodo
             }
         },
         methods: {
             addTodo(newTodo){
-                this.axios
-                    .post('http://laravel-vue.dev/api/todo/create', {
-                        title: this.newTodo.title,
-                        body:this.newTodo.body,
-                        completed:this.newTodo.completed
-                    })
-                    .then(response => {
-                        this.todos.push(response.data);
-                    });
-                this.newTodo = {id:null,title:'',body:'',completed:false}
+               this.$store.dispatch('saveTodo',newTodo)
             }
         }
     }

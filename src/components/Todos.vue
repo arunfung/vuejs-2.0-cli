@@ -6,7 +6,7 @@
                 v-for="(todo,index) in todos ">
                 <router-link :to="{ name: 'todo', params: { id: todo.id }}">{{todo.title}}</router-link>
                 <button class="btn btn-warning btn-xs pull-right"
-                        v-on:click="deleteTodo(index,todo)">delete</button>
+                        v-on:click="deleteTodo(todo,index)">delete</button>
                 <button class="btn btn-xs pull-right margin-right-10"
                         v-bind:class="[todo.completed ? 'btn-danger' : 'btn-success']"
                         v-on:click="toggleCompleted(todo)">
@@ -30,21 +30,17 @@
     import TodoForm from './TodoForm'
     export default{
         name: "todos",
-        props : ['todos'],
+        computed: {
+            todos () {
+                return this.$store.state.todos
+            }
+        },
         methods : {
-            deleteTodo(index,todo){
-                this.axios
-                    .delete('http://laravel-vue.dev/api/todo/'+todo.id+'/delete')
-                    .then(response =>{
-                        this.todos.splice(index,1);
-                    });
+            deleteTodo(todo,index){
+                this.$store.dispatch('removeTodo', {todo,index})
             },
             toggleCompleted(todo){
-                this.axios
-                    .patch('http://laravel-vue.dev/api/todo/'+todo.id+'/completed')
-                    .then(response =>{
-                        todo.completed = !todo.completed;
-                    });
+                this.$store.dispatch('completeTodo', todo)
             }
         },
         components: {

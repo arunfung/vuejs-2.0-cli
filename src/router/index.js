@@ -6,7 +6,7 @@ import Hello from '@/components/Hello'
 import Todos from '@/components/Todos'
 import Todo from '@/components/Todo'
 
-Vue.use(Router)
+Vue.use(Router);
 Vue.use(VueAxios, axios);
 
 export default new Router({
